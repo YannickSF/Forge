@@ -40,12 +40,11 @@ uint8_t RADIO_CHANNEL = 100;
 struct RadioPacket // Any packet up to 32 bytes can be sent.
 {
     uint8_t FromRadioId;
-    uint32_t pX = 0; // Potentiomètre X : Puissance
-    uint32_t pY = 0; // Potentiomètre Y : 
-    uint32_t dX = 0; // Direction X : Abscisse
-    uint32_t dY = 0; // Direction Y : Ordonnée
+    uint32_t p1 = 0; // Potentiomètre 1 : Puissance
+    uint32_t p2 = 0; // Potentiomètre 1 : Puissance
+    uint32_t dX; // Direction 1 : Abscisse
+    uint32_t dY; // Direction 2 : Ordonnée
 };
-
 
 NRFLite _radio;
 RadioPacket _radioData;
@@ -81,46 +80,28 @@ void listen_radio(){
     Serial.print(RADIO_ID);
     Serial.print("-");
     Serial.print(RADIO_CHANNEL);
-    Serial.print("|");
-
-    display.print("RxID:");
-    display.print(RADIO_ID);
-    display.print(" CH:");
-    display.println(RADIO_CHANNEL);
+    Serial.print("| ");
     
     _radioData.FromRadioId = RADIO_ID;
     if (_radio.hasData())
     {
         _radio.readData(&_radioData); // Note how '&' must be placed in front of the variable name.
-        Serial.print(_radioData.FromRadioId);
-        Serial.print("-");
-        Serial.print(_radioData.pX);
-        Serial.print("-");
-        Serial.print(_radioData.pY);
-        Serial.print("-");
-        Serial.print(_radioData.dX);
-        Serial.print("-");
-        Serial.println(_radioData.dY);
+        Serial.println("Sucess");
         
-        display.print("ExId:");
-        display.print(_radioData.FromRadioId);
-        display.println("  >...Tx");
-        display.print("{1}:");
-        display.print(_radioData.pX);
-        display.print("#");
-        display.println(_radioData.pY);
-        display.print("{2}");
-        display.print(_radioData.dX);
-        display.print("#");
-        display.println(_radioData.dY);
+        display.print("RxID:");
+        display.print(RADIO_ID);
+        display.print(" CH:");
+        display.println(RADIO_CHANNEL);
+        display.println(">..............Tx");
     
     }else{
-        Serial.println("None");
-        
-        display.print("ExId:");
-        display.print("@");
-        display.println("  >...");
-        
+        Serial.println("No_Data");
+
+        display.print("RxID:");
+        display.print(RADIO_ID);
+        display.print(" CH:");
+        display.println(RADIO_CHANNEL);
+        display.println(">...............");
     }
 }
 

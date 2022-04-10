@@ -49,11 +49,10 @@ struct RadioPacketEngine // Any packet up to 32 bytes can be sent.
 struct RadioPacketSensor // Any packet up to 32 bytes can be sent.
 {
     uint8_t FromRadioId;
-    uint32_t val1 = 0; // humidité Sol
-    uint32_t val2  = 0; // Température
-    uint32_t val3  = 0; // humidité
-    uint32_t val4 = 0; // pression
-    uint32_t val5 = 0; // altitude
+    uint32_t temp = 0; // Température
+    uint32_t hSol = 0; // humidité Sol
+    uint32_t pression = 0; // pression
+    uint32_t altitud = 0; // altitude
 };
 
 
@@ -125,22 +124,22 @@ void listen_radio(){
           
           Serial.print(_radioDataSen.FromRadioId);
           Serial.print("-");
-          Serial.print(_radioDataSen.val1);
+          Serial.print(_radioDataSen.temp);
           Serial.print("-");
-          Serial.print(_radioDataSen.val2);
+          Serial.print(_radioDataSen.hSol);
           Serial.print("-");
-          Serial.print(_radioDataSen.val3);
+          Serial.print(_radioDataSen.pression);
           Serial.print("-");
-          Serial.println(_radioDataSen.val4);
+          Serial.println(_radioDataSen.altitud);
           
           display.print("#1:");
-          display.print(_radioDataSen.val1);
-          display.print("#2:");
-          display.println(_radioDataSen.val2);
+          display.print(_radioDataSen.temp);
+          display.print("#S2:");
+          display.println(_radioDataSen.hSol);
           display.print("#3:");
-          display.print(_radioDataSen.val3);
+          display.print(_radioDataSen.pression);
           display.print("#4:");
-          display.println(_radioDataSen.val4);
+          display.println(_radioDataSen.altitud);
       }        
     
     }else{
